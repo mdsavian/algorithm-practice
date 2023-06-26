@@ -3,35 +3,33 @@
 
 https://leetcode.com/problems/valid-anagram/
 
-THE IDEIA OF CREATING HASHMAPS IS CORRECT, BUT HAVE A BETTER SOLUTION, 
-
-WHEN REPEAT TRY TO THINK HOW YOU CAN REDUCE THE NUMBER OF FORS
-
 """
 
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-
-        if (len(s) != len(t)):
+        if len(s) != len(t):
             return False
 
-        tMap, sMap = {}, {}
+        sHash = {}
+        tHash = {}
 
-        for i in s:
-            if i in sMap:
-                sMap[i] += 1
-            else:
-                sMap[i] = 1
+        for i in range(len(s)):
+            sHash[s[i]] = 1 + sHash.get(s[i], 0)
+            tHash[t[i]] = 1 + tHash.get(t[i], 0)
 
-        for i in t:
-            if i in tMap:
-                tMap[i] += 1
-            else:
-                tMap[i] = 1
+        return sHash == tHash
 
-        for key in tMap:
-            if not key in sMap or tMap[key] != sMap[key]:
-                return False
 
-        return True
+def test(s, t, expected_answer):
+    answer = Solution().isAnagram(s, t)
+
+    if answer != expected_answer:
+        raise Exception(
+            f"Answer {answer} is incorrect. Expected answer was {expected_answer}")
+
+
+test("xx", "xxx", False)
+test("anagram", "nagaram", True)
+test("ant", "tan", True)
+test("rat", "car", False)
