@@ -8,19 +8,24 @@ https://leetcode.com/problems/roman-to-integer/
 
 class Solution:
     def romanToInt(self, s: str) -> int:
+        romanInt = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000,
+        }
 
-        hashMap = {"I": 1, "V": 5, "X": 10, "L": 50,
-                   "C": 100, "D": 500, "M": 1000}
-
-        total = 0
-
+        ans = 0
         for i in range(len(s)):
-            if i < len(s) - 1 and hashMap[s[i]] < hashMap[s[i+1]]:
-                total -= hashMap[s[i]]
+            if (i + 1 < len(s) and romanInt[s[i]] < romanInt[s[i+1]]):
+                ans -= romanInt[s[i]]
             else:
-                total += hashMap[s[i]]
+                ans += romanInt[s[i]]
 
-        return total
+        return ans
 
 
 def test(s, expected_answer):
@@ -31,6 +36,6 @@ def test(s, expected_answer):
             f"Answer {answer} is incorrect. Expected answer was {expected_answer}")
 
 
-test('III', 3)
-test('LVIII', 58)
-test('MCMXCIV', 1994)
+test("III", 3)
+test("LVIII", 58)
+test("MCMXCIV", 1994)
