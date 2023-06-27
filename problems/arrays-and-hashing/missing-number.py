@@ -10,12 +10,14 @@ from typing import List
 
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        if len(nums) not in nums:
-            return len(nums)
+        total = 0
+        totalLen = 0
 
-        for i in range(len(nums)):
-            if i not in nums:
-                return i
+        for i, val in enumerate(nums):
+            total += val
+            totalLen += i + 1
+
+        return totalLen - total
 
 
 def test(s, expected_answer):
